@@ -5,9 +5,13 @@
     <link href="mastermind.css" rel="stylesheet" type="text/css" />
     <head>
       <body>
+      <% if @message %>
+        <p> <%= @message%> </p>
+      <% end %>
         <% @guesses.each do |guess|%>
           <div class="guessed-rows">
             <% guess.each do |circle| %>
+              <% puts circle %>
               <div class="guessed-circles" style="background-color: <%= circle %>; display: inline-block">kjlk</div>
             <% end %>
           </div>

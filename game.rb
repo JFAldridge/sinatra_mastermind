@@ -30,21 +30,22 @@ class Game
 
   def feedback_on_guess(code_guess)
     code_duplicate = @code.dup
+    guess_dup = code_guess.dup
     feedback = []
 
     code_duplicate.map.with_index do |entry, i|
-      if entry == code_guess[i]
+      if entry == guess_dup[i]
         feedback.push('red')
-        code_guess[i] = -1
+        guess_dup[i] = -1
         -2
       else
       entry
       end
     end.each do |entry|
-      found_index = code_guess.find_index(entry)
+      found_index = guess_dup.find_index(entry)
       if found_index
         feedback.push('black')
-        code_guess[found_index] = -1
+        guess_dup[found_index] = -1
       end
     end
 
@@ -55,8 +56,8 @@ class Game
     @turns_left -= 1
   end
 
-  def game_won?(feedback)
-    guess_feedback[guess.length - 1] == "red"
+  def game_won?
+    @all_feedback[@turns_left].last == "red"
   end
 
   def game_lost?

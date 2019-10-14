@@ -19,5 +19,13 @@ post '/mastermind' do
   
   game.turn_countdown
 
-  erb :mastermind 
+  if game.game_lost?
+    @message = 'you lost'
+    erb :mastermind
+  elsif game.game_won?
+    @message = 'game won'
+    erb :mastermind
+  else
+    erb :mastermind 
+  end
 end
