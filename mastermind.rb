@@ -19,6 +19,8 @@ post '/mastermind' do
   
   game.turn_countdown
 
+  puts game.code
+
   if game.game_lost?
     @message = 'you lost'
     erb :mastermind

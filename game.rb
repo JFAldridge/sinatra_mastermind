@@ -10,7 +10,7 @@ class Game
     @all_feedback = Array.new(@turns_left) { Array.new(4, 'gray') }
   end
 
-  attr_accessor :guesses, :all_feedback, :turns_left
+  attr_accessor :guesses, :all_feedback, :turns_left, :code
 
   def update_board(code_guess)
     add_guess_to_guesses(code_guess)
@@ -87,7 +87,7 @@ class ComputerPlayer < Player
 
   def get_code
     colors = ['red', 'green', 'blue', 'orange', 'pink', 'purple', 'yellow', 'white']
-    Array.new(4){colors[rand(1..8)]}
+    Array.new(4){colors[rand(0..7)]}
   end
 end
 
