@@ -10,7 +10,7 @@ class Game
     @all_feedback = Array.new(@turns_left) { Array.new(4, 'gray') }
   end
 
-  attr_accessor :guesses, :all_feedback
+  attr_accessor :guesses, :all_feedback, :turns_left
 
   def update_board(code_guess)
     add_guess_to_guesses(code_guess)
@@ -22,7 +22,10 @@ class Game
   end
 
   def add_feedback_to_all_feedback(params)
-    @all_feedback[@turns_left] = feedback_on_guess(params)
+    feedback = feedback_on_guess(params)
+    padded_feedback = feedback.fill('gray', feedback.length, 4 - feedback.length)
+    
+    @all_feedback[@turns_left] = padded_feedback
   end
 
   def feedback_on_guess(code_guess)
@@ -40,7 +43,7 @@ class Game
     end.each do |entry|
       found_index = code_guess.find_index(entry)
       if found_index
-        feedback.push('gray')
+        feedback.push('black')
         code_guess[found_index] = -1
       end
     end
@@ -53,7 +56,7 @@ class Game
   end
 
   def game_won?(feedback)
-    guess_feedback[guess.length - 1] == "r"
+    guess_feedback[guess.length - 1] == "red"
   end
 
   def game_lost?
@@ -82,7 +85,8 @@ class ComputerPlayer < Player
   end
 
   def get_code
-    Array.new(4){rand(1..8)}
+    colors = ['red', 'green', 'blue', 'orange', 'pink', 'purple', 'yellow', 'white']
+    Array.new(4){colors[rand(1..8)]}
   end
 end
 

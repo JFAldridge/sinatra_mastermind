@@ -3,33 +3,29 @@
   <head>
     <title>The name of your site</title>
     <link href="mastermind.css" rel="stylesheet" type="text/css" />
-  <head>
+    <head>
+      <body>
+        <% @guesses.each do |guess|%>
+          <div class="guessed-rows">
+            <% guess.each do |circle| %>
+              <div class="guessed-circles" style="background-color: <%= circle %>; display: inline-block">kjlk</div>
+            <% end %>
+          </div>
+        <% end %>
+        <% @all_feedback.each do |row|%>
+          <div class="guessed-rows">
+            <% row.each do |peg| %>
+              <div class="guessed-circles" style="background-color: <%= peg %>; display: inline-block">kjlk</div>
+            <% end %>
+          </div>
+        <% end %>
+        <form action="/mastermind" method="post">
+          <input type='text' name='guess_one' />
+          <input type='text' name='guess_two' />
+          <input type='text' name='guess_three' />
+          <input type='text' name='guess_four' />
+          <input type='submit' value='Submit' />
+        </form>
+      </body>
+    </html>
 
-  <body>
-
-  <% @guesses.each do |guess|%>
-    <div class="guessed-rows">
-    <% guess.each do |circle| %>
-      <div class="guessed-circles" style="background-color: <%= circle %>; display: inline-block">kjlk</div>
-    <% end %>
-    </div>
-  <% end %>
-
-  <% @all_feedback.each do |guess|%>
-    <div class="guessed-rows">
-    <% guess.each do |circle| %>
-      <div class="guessed-circles" style="background-color: <%= circle %>; display: inline-block">kjlk</div>
-    <% end %>
-    </div>
-  <% end %>
-
-  <form action="/mastermind" method="post">
-  <input type='text' name='guess_one' />
-  <input type='text' name='guess_two' />
-  <input type='text' name='guess_three' />
-  <input type='text' name='guess_four' />
-  <input type='submit' value='Submit' />
-  </form>
-  
-  </body>
-</html>
