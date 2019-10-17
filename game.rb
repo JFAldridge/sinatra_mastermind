@@ -26,6 +26,7 @@ class Game
     padded_feedback = feedback.fill('gray', feedback.length, 4 - feedback.length)
     
     @all_feedback[@turns_left] = padded_feedback
+    puts @all_feedback[@turns_left].last
   end
 
   def feedback_on_guess(code_guess)

@@ -17,17 +17,17 @@ post '/mastermind' do
   @guesses = game.guesses
   @all_feedback = game.all_feedback
   
-  game.turn_countdown
-
   puts game.code
+
+  @message = nil
 
   if game.game_lost?
     @message = 'you lost'
-    erb :mastermind
   elsif game.game_won?
-    @message = 'game won'
-    erb :mastermind
-  else
-    erb :mastermind 
+    @message = 'game won' 
   end
+
+  game.turn_countdown
+
+  erb :mastermind
 end
