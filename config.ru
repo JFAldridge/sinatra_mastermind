@@ -1,2 +1,2 @@
-require './hello'
+require './mastermind.rb'
 run Sinatra::Application
