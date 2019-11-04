@@ -26,7 +26,6 @@ class Game
     padded_feedback = feedback.fill('gray', feedback.length, 4 - feedback.length)
     
     @all_feedback[@turns_left] = padded_feedback
-    puts @all_feedback[@turns_left].last
   end
 
   def feedback_on_guess(code_guess)
@@ -62,7 +61,7 @@ class Game
   end
 
   def game_lost?
-    @turn == 0
+    @turns_left == 0
   end
 
   def code_breaker
@@ -87,7 +86,7 @@ class ComputerPlayer < Player
   end
 
   def get_code
-    colors = ['red', 'green', 'blue', 'orange', 'pink', 'purple', 'yellow', 'white']
+    colors = ['red', 'blue', 'green', 'orange', 'pink', 'yellow', 'white', 'black']
     Array.new(4){colors[rand(0..7)]}
   end
 end

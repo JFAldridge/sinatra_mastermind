@@ -1,35 +1,124 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The name of your site</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>mastermind</title>
     <link href="mastermind.css" rel="stylesheet" type="text/css" />
-    <head>
-      <body>
-      <% if @message %>
-        <% puts 'taco' %>
-        <p> <%= @message %> </p>
-      <% end %>
-        <% @guesses.each do |guess|%>
-          <div class="guessed-rows">
-            <% guess.each do |circle| %>
-              <div class="guessed-circles" style="background-color: <%= circle %>; display: inline-block">kjlk</div>
-            <% end %>
+    <link href="https://fonts.googleapis.com/css?family=Sofadi+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="game-container">
+      <div id="solution-padding"></div>
+      
+      <div id="solution-container">
+          <div id="solution-row">
+            <div class="s-slot-container">
+              <div class="s-slots" style="background-color:<%= @solution ? @solution[0] : 'gray' %>"></div>
+            </div>
+            <div class="s-slot-container">
+              <div class="s-slots" style="background-color:<%= @solution ? @solution[1] : 'gray' %>"></div>
+            </div>
+            <div class="s-slot-container">
+              <div class="s-slots" style="background-color:<%= @solution ? @solution[2] : 'gray' %>"></div>
+            </div>
+            <div class="s-slot-container">
+              <div class="s-slots" style="background-color:<%= @solution ? @solution[3] : 'gray' %>"></div>
+            </div>
           </div>
+         
+      </div>
+      
+      <div id="board-container">
+        <% if @message %>
+          <div id="win-lose-notification">
+            
+              <h3 id="game-result"> <%= @message %></h3>
+            
+            <button id="play-again">Play again?</button>
+          </div>    
         <% end %>
-        <% @all_feedback.each do |row|%>
-          <div class="guessed-rows">
-            <% row.each do |peg| %>
-              <div class="guessed-circles" style="background-color: <%= peg %>; display: inline-block">kjlk</div>
-            <% end %>
-          </div>
-        <% end %>
-        <form action="/mastermind" method="post">
-          <input type='text' name='guess_one' />
-          <input type='text' name='guess_two' />
-          <input type='text' name='guess_three' />
-          <input type='text' name='guess_four' />
-          <input type='submit' value='Submit' />
-        </form>
-      </body>
-    </html>
+        <div id="played-elements-wrapper">
 
+          <% @guesses.each_with_index do |guess, i| %>
+          
+            <div class="guess-row">
+              <div class="guess-container">
+                <div class="slot-container">
+                  <div class="guess-slots" style="background-color:<%= guess[0] %>; box-shadow: 0 0 3px <%= guess[0] %>;"></div>
+                </div>
+                <div class="slot-container">
+                  <div class="guess-slots" style="background-color:<%= guess[1] %>; box-shadow: 0 0 3px <%= guess[1] %>;"></div>
+                </div>
+                <div class="slot-container">
+                  <div class="guess-slots" style="background-color:<%= guess[2] %>; box-shadow: 0 0 3px <%= guess[2] %>;"></div>
+                </div>
+                <div class="slot-container">
+                  <div class="guess-slots" style="background-color:<%= guess[3] %>; box-shadow: 0 0 3px <%= guess[3] %>;"></div>
+                </div>
+              </div>
+              <div class="feedback-container">
+                <div class="f-slot-container">
+                  <div class="f-slots" style="background-color:<%= @all_feedback[i][0] %>"></div>
+                </div>
+                <div class="f-slot-container">
+                  <div class="f-slots" style="background-color:<%= @all_feedback[i][1] %>"></div>
+                </div>
+                <div class="f-slot-container">
+                  <div class="f-slots" style="background-color:<%= @all_feedback[i][2] %>"></div>
+                </div>
+                <div class="f-slot-container">
+                  <div class="f-slots" style="background-color:<%= @all_feedback[i][3] %>"></div>
+                </div>
+              </div>
+            </div>
+            
+          <% end %>
+
+        </div>
+
+        <div id="guess-input-wrapper">
+          <div id="input-rotators-container">
+            <div class="g-slot-container">
+              <div id="rotator-one" class="rotators red"></div>
+            </div>
+            <div class="g-slot-container">
+              <div id="rotator-two" class="rotators red"></div>
+            </div>
+            <div class="g-slot-container">
+              <div id="rotator-three" class="rotators red" ></div>
+            </div>
+            <div class="g-slot-container">
+              <div id="rotator-four" class="rotators red"></div>
+            </div>
+          </div>
+          <div id="submit-container">
+            <button id="submit-button" type="submit" form="code-guess" value="Submit">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="new-game-container">
+      <button id="new-game-button">New Game</button>
+      </div>
+
+    </div>
+
+    <form action="/mastermind" method="post" id="code-guess">
+      <input id='input-one' class='inputs' type='text' name='input-one' value='red' />
+      <input id='input-two' class='inputs' type='text' name='input-two' value='red' />
+      <input id='input-three' class='inputs' type='text' name='input-three' value='red' />
+      <input id='input-four' class='inputs' type='text' name='input-four' value='red' />
+    </form>
+
+
+    
+  
+
+
+      
+    <script src="mastermind.js"></script>
+  </body>
+</html>

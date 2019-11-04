@@ -1,9 +1,9 @@
 require 'sinatra'
-require 'sinatra/reloader'
 require 'erb'
 require_relative './game.rb'
 
 game = Game.new
+
 
 get '/mastermind' do
   @guesses = game.guesses
@@ -13,21 +13,32 @@ get '/mastermind' do
 end
 
 post '/mastermind' do
-  game.update_board(params.values)
-  @guesses = game.guesses
-  @all_feedback = game.all_feedback
-  
-  puts game.code
+  if params.values[0] == "new_game"
+    game = Game.new
 
-  @message = nil
+    @guesses = game.guesses
+    @all_feedback = game.all_feedback
 
-  if game.game_lost?
-    @message = 'you lost'
-  elsif game.game_won?
-    @message = 'game won' 
+    erb :mastermind
+  else
+    game.turn_countdown
+
+    game.update_board(params.values)
+    @guesses = game.guesses
+    @all_feedback = game.all_feedback
+    
+    puts game.code
+
+    @message = nil
+
+    if game.game_lost?
+      @message = 'You lost'
+      @solution = game.code
+    elsif game.game_won?
+      @message = 'You won!' 
+      @solution = game.code
+    end
+
+    erb :mastermind
   end
-
-  game.turn_countdown
-
-  erb :mastermind
 end
